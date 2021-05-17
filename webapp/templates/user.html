@@ -1,6 +1,23 @@
 {% extends "base.html" %}
 
 {% block content %}
+<p>{% include 'message.html' %}</p>
+<div class="card" xmlns="http://www.w3.org/1999/html">
+  <div class="card-body">
+    <p class="card-text">
+      <table>
+       <tr><td><h1>{{ user.name.first }} {{ user.name.last }}</h1></td></tr>
+       <tr><td><img src={{ user.picture.large }}></td></tr>
+      <tr><td><br><b>Gender:</b> {{ user.gender }}</td></tr>
+      <tr><td><b>Phone:</b> {{ user.cell }}</td></tr>
+      <tr><td><b>Email:</b> {{ user.email }}</td></tr>
+      <tr><td><b>Address:</b> {{ user.location.country }}, {{ user.location.city }}, {{user.location.street.name }}</td></tr>
+</table><br>
+<p>
+<a class="btn btn-primary" href="{{ url_for('update_user', user_id=user._id)}}" role="button">Edit</a>
+    <a class="btn btn-danger" href="{{ url_for('delete_user', user_id=user._id)}}" role="button" method="delete">Delete</a>
+</p>
+  </div>
+</div>
 
 {% endblock %}
-

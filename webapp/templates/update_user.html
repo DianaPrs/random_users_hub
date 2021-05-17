@@ -5,41 +5,42 @@
     <div class="card mb-4">
         <div class="text-center">
             <form class="bg-light", action="", method="POST">
-    {{ form.hidden_tag() }}
-    <p><br>
+    {{ form.hidden_tag() }}<br>
+                <p><img src={{ user.picture.large }}></p>
+    </p
     {{ form.first_name.label }}<br>
-    {{ form.first_name() }}
+    {{ form.first_name(value=user.name.first) }}
     </p>
     <p>{{ form.last_name.label }}<br>
-    {{ form.last_name() }}
+    {{ form.last_name(value=user.name.last) }}
     </p>
     <p>
         {{ form.gender.label }}<br>
-        {{ form.gender() }}
+        {{ form.gender(value=user.gender) }}
     </p>
     <p>
         {{ form.phone.label }}<br>
-        {{ form.phone() }}
+        {{ form.phone(value=user.cell) }}
     </p>
     <p>
         {{ form.email.label }}<br>
-        {{ form.email() }}
+        {{ form.email(value=user.email) }}
     </p>
-    <p>
+         <p>
         {{ form.country.label }}<br>
-        {{ form.country() }}
+        {{ form.country(value=user.location.country) }}
     </p>
     <p>
         {{ form.city.label }}<br>
-        {{ form.city() }}
+        {{ form.city(value=user.location.city) }}
     </p>
     <p>
         {{ form.street.label }}<br>
-        {{ form.street() }}
+        {{ form.street(value=user.location.street.name) }}
     </p>
     <p>
         {{ form.picture.label }}<br>
-        {{ form.picture(value="https://randomuser.me/api/portraits/women/21.jpg") }}
+        {{ form.picture(value=user.picture.large) }}
     </p>
 <p>{{ form.submit() }}</p>
 </p>

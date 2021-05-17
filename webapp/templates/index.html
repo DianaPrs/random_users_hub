@@ -21,7 +21,7 @@
         </div>
         <!-- Data Table -->
      <p><div class="container">
-      <div class="card mb-4">
+      <div class="card mb-4 wrap_images">
       <div class="card-header"><i class="fas fa-table mr-1"></i>Users currently in database</div>
       </p>
       <div class="card-body" >
@@ -54,14 +54,14 @@
                   <tbody>
                       {% for user in users %}
                       <tr>
-                        <td><img src={{ user.picture.thumbnail }}></td>
+                        <td><img class="img-thumbnail" src={{ user.picture.large }}></td>
                         <td>{{ user.name.first }}</td>
                         <td>{{ user.name.last }}</td>
                         <td>{{ user.gender }}</td>
                         <td>{{ user.cell }}</td>
                         <td>{{ user.email }}</td>
                         <td>{{ user.location.country }}, {{ user.location.city }}, {{user.location.street.name }}</td>
-                        <td><a href="/">Go</a></td>
+                        <td><a href="{{ url_for('user_profile', user_id=user._id) }}">profile</a></td>
                       </tr>
                       {% endfor %}
 
