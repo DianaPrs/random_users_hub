@@ -6,7 +6,7 @@ stored it in mongo database and providing interface for simple CRUD operations.
 # Settings
 Configuration file in webapp directory mast contain:
 
-MONGO_URI = "mongodb+srv://<username>:<password>@<clustername>.k1pbt.mongodb.net/<dbname>?retryWrites=true&w=majority"
+MONGO_URI = "mongodb+srv://<username>:<password>@<clustername>.k1pbt.mongodb.net/"
 RANDOMUSER_URL = "https://randomuser.me/api/1.3/"
 SECRET_KEY = "<your_secret_key>"
 
