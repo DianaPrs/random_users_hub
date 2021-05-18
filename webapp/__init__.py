@@ -51,6 +51,7 @@ def create_app(config: str = None):
         :return redirect to index.html
         """
         num = request.form["number"]
+        print(request.form)
         user = get_user(num)
         if user:
             db.users.insert_many(user)
@@ -92,10 +93,11 @@ def create_app(config: str = None):
                 },
                 "picture": {"large": form.picture.data},
             }
-            user = db.users.find_one_or_404({"email": form.email.data})
+            user = db.users.find_one({"email": form.email.data})
             if not user:
                 db.users.insert_one(data)
                 flash("Successfully added")
+                user = db.users.find_one_or_404({"email": form.email.data})
                 return render_template("user.html", user=user)
             flash("User with that email already exist")
         else:
