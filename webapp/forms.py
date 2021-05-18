@@ -1,11 +1,14 @@
+import urllib.request
+
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
-from wtforms.fields.html5 import URLField, EmailField
-from wtforms.validators import DataRequired, Email, URL, ValidationError
-import urllib.request
+from wtforms.fields.html5 import EmailField, URLField
+from wtforms.validators import URL, DataRequired, Email, ValidationError
 
 
 class UserForm(FlaskForm):
+    """Create user instance"""
+
     first_name = StringField("First name", validators=[DataRequired()])
     last_name = StringField("Last name", validators=[DataRequired()])
     gender = StringField("Gender", validators=[DataRequired()])
@@ -14,13 +17,18 @@ class UserForm(FlaskForm):
     country = StringField("Country", validators=[DataRequired()])
     street = StringField("Street", validators=[DataRequired()])
     email = EmailField("Email", validators=[DataRequired(), Email()])
-    picture = URLField("Photo", validators=[URL()],)
+    picture = URLField("Photo", validators=[DataRequired(), URL()])
     submit = SubmitField("Save")
 
-    @staticmethod
-    def validate_picture(form, field):
+    def validate_picture(self, field):
+        """Validates URL availability
+         and picture format.
+
+        :param field: URL field
+        """
+        if field.data[-4:].lower() != ".jpg":
+            raise ValidationError("Image url should end on .jpg")
         try:
             urllib.request.urlopen(field.data)
-        except Exception as ex:
-            raise ValidationError(ex)
-
+        except Exception:
+            raise ValidationError("URL not available")

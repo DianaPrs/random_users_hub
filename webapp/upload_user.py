@@ -1,15 +1,18 @@
-from flask import current_app
-from typing import List, Dict, Optional
+from typing import Dict, List, Optional
+
 import requests
-from jsonschema import validate, ValidationError
+from flask import current_app
+from jsonschema import ValidationError, validate
+
 from .json_schema import schema
 
 
-def get_user(number_of_users: int) -> Optional[List[Dict[str, str]]]:
+def get_user(number_of_users: int) -> Optional[List[Dict[str, Dict]]]:
     """Send request to external API
 
     :param number_of_users: the number of users entries that will be loaded
-    :return list of dictionaries containing user data, where keys: name , gender,cell, email, location, picture
+    :return list of dictionaries containing user data, where
+    keys: name, gender, cell, email, location, picture
     """
     randomuser_url = current_app.config["RANDOMUSER_URL"]
     params = {
@@ -25,17 +28,20 @@ def get_user(number_of_users: int) -> Optional[List[Dict[str, str]]]:
             try:
                 validate_data(data)
                 return results
-            except(IndexError, TypeError):
+            except (IndexError, TypeError):
                 return False
-    except(requests.RequestException, ValueError):
-        print('Network error')
+    except (requests.RequestException, ValueError):
+        print("Network error")
         return False
 
 
-def validate_data(content: Dict[str, Dict], schema=schema):
+def validate_data(content: Dict[str, Dict], schema=schema) -> None:
+    """Validate JSON data
+
+    :param content: Json data
+    :param schema: json schema
+    """
     try:
         validate(content, schema)
     except ValidationError as ex:
-       print(ex.message)
-       #raise JSONValidationError(ex.message)
-
+        raise Exception(ex.message)
