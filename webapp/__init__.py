@@ -24,7 +24,7 @@ def create_app(config: str = None):
         """Main page route endpoint.
 
         Connecting to db, check if it is empty.
-        Uploads 1000 records if db empty, using
+        Uploads 1000 records if db is empty, using
         get_user function. Show existing records
         if not empty. Show lost connection flash
         if failed to connect to the db.
@@ -51,7 +51,6 @@ def create_app(config: str = None):
         :return redirect to index.html
         """
         num = request.form["number"]
-        print(request.form)
         user = get_user(num)
         if user:
             db.users.insert_many(user)
@@ -164,7 +163,7 @@ def create_app(config: str = None):
 
     @app.route("/delete/<user_id>", methods=["GET"])
     def delete_user(user_id: str):
-        """Render user.html template
+        """Deletes record from database.
 
         :param user_id: unique records id
         :return redirect to main page after deletion
