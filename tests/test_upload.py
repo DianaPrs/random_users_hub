@@ -5,6 +5,7 @@ from webapp.upload_user import get_user
 
 
 def test_get_user():
+    """Test get_user fanction with valid data"""
     app = create_app("flask_test.cfg")
     with app.app_context():
         with patch("requests.get") as MockTask:
@@ -13,24 +14,27 @@ def test_get_user():
                 "results": [
                     {
                         "gender": "male",
-                        "name": {"first": "Mikkel", "last": "Alstad"},
+                        "name": {"title": "Mr", "first": "Felix", "last": "Hansen"},
                         "location": {
-                            "street": {"number": 8393, "name": "Brettevilles gate"},
-                            "city": "Vågsvåg",
-                            "country": "Norway",
+                            "street": {"number": 5177, "name": "Hyldevej"},
+                            "city": "Gørløse",
+                            "country": "Denmark",
                         },
-                        "email": "mikkel.alstad",
-                        "cell": "46133606",
+                        "email": "felix.hansen@example.com",
+                        "cell": "29130618",
                         "picture": {
-                            "large": "https://randomuser.me/api/portraits/men/76.jpg"
+                            "large": "https://randomuser.me/api/portraits/men/76.jpg",
+                            "medium": "https://randomuser.me/api/portraits/med/men/76.jpg",
+                            "thumbnail": "https://randomuser.me/api/portraits/thumb/men/76.jpg",
                         },
                     }
                 ]
             }
-            assert get_user(1) == False
+            assert isinstance(get_user(1), list)
 
 
 def test_get_user_not_valid_data():
+     """Test get_user fanction with not valid data"""
     app = create_app("flask_test.cfg")
     with app.app_context():
         with patch("requests.get") as MockTask:
