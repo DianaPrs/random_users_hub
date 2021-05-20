@@ -28,7 +28,7 @@ def get_user(number_of_users: int) -> Optional[List[Dict[str, Dict]]]:
             try:
                 validate_data(data)
                 return results
-            except (IndexError, TypeError):
+            except (ValidationError, IndexError, TypeError):
                 return False
     except (requests.RequestException, ValueError):
         print("Network error")
@@ -41,7 +41,8 @@ def validate_data(content: Dict[str, Dict], schema=schema) -> None:
     :param content: Json data
     :param schema: json schema
     """
-    try:
-        validate(content, schema)
-    except ValidationError as ex:
-        raise Exception(ex.message)
+    for record in content["results"]:
+        try:
+            validate(record, schema)
+        except ValidationError as ex:
+            raise ValidationError(ex.message)
