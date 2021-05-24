@@ -4,7 +4,7 @@ Web application collects users data from [Random user generator](https://randomu
 stored it in mongo database and providing interface for simple CRUD operations.
 
 # Settings
-Configuration file config.py in webapp directory mast contain:
+Configuration file config.py in webapp directory must contain:
 
 - MONGO_URI = "mongodb+srv://{username}:{password}@userscluster.k1pbt.mongodb.net/appdb?retryWrites=true&w=majority""
 - RANDOMUSER_URL = "https://randomuser.me/api/1.3/"
