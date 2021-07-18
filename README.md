@@ -32,7 +32,7 @@ source env/bin/activate
 ```
 for Windows:
 ```
-env\Scripts\activate
+env \Scripts\activate
 ```
 Inatall packages and run:
 ```
